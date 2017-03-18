@@ -1,9 +1,19 @@
-{% if latest_question_list %}
-    <ul>
-    {% for question in latest_question_list %}
-        <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No polls are available.</p>
-{% endif %}
+{% extends 'polls/base.html' %}
+
+{% block content %}
+    {% if latest_question_list %}
+        <h5>Total {{ latest_question_list.count }} polls</h5>
+        <div class="w3-panel">
+            {% for question in latest_question_list %}
+                <button class="w3-button w3-block w3-light-grey w3-hover-aqua w3-border"
+                        onclick="location.href='{% url 'polls:detail' question.id %}'">
+                    <h5>{{ question.question_text }}</h5>
+                </button>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="w3-panel w3-pale-red w3-leftbar w3-rightbar w3-border-red">
+            <p>No polls are available.</p>
+        </div>
+    {% endif %}
+{% endblock content %}

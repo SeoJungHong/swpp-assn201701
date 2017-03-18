@@ -1,12 +1,25 @@
-<h1>{{ question.question_text }}</h1>
+{% extends 'polls/base.html' %}
 
-{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-
-<form action="{% url 'polls:vote' question.id %}" method="post">
-{% csrf_token %}
-{% for choice in question.choice_set.all %}
-    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
-    <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br/>
-{% endfor %}
-<input type="submit" value="Vote" />
-</form>
+{% block content %}
+    <div class="w3-panel w3-pale-blue">
+        <h3>{{ question.question_text }}</h3>
+    </div>
+    {% if question.choice_set.all.count == 0 %}
+        <div class="w3-panel w3-pale-red w3-leftbar w3-rightbar w3-border-red">
+            <p>No choices are available.</p>
+        </div>
+        <button class="w3-btn w3-blue-grey" onclick="window.history.back();">Back</button>
+    {% else %}
+        <form class="w3-panel" action="{% url 'polls:vote' question.id %}" method="post">
+            {% csrf_token %}
+            {% for choice in question.choice_set.all %}
+                <input class="w3-radio" type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" >
+                <label class="w3-validate" for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label>
+                <br>
+            {% endfor %}
+            <br>
+            <button class="w3-btn w3-blue-grey" onclick="window.history.back();">Back</button>
+            <input class="w3-btn w3-blue" type="submit" value="Vote" >
+        </form>
+    {% endif %}
+{% endblock content %}
