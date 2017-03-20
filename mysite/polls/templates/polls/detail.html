@@ -9,6 +9,11 @@
             <p>No choices are available.</p>
         </div>
         <button class="w3-btn w3-blue-grey" onclick="window.history.back();">Back</button>
+    {% elif error_message %}
+        <div class="w3-panel w3-pale-red w3-leftbar w3-rightbar w3-border-red">
+            <p>{{ error_message }}</p>
+        </div>
+        <button class="w3-btn w3-blue-grey" onclick="window.history.back();">Back</button>
     {% else %}
         <form class="w3-panel" action="{% url 'polls:vote' question.id %}" method="post">
             {% csrf_token %}
