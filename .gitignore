@@ -1,2 +1,23 @@
+# database
+db.sqlite3
+
+# IDE settings dir
+.idea/
+
+# compiled python file/dir
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django stuff:
+*.log
+local_settings.py
+
+# virtualenv
+.venv
+venv/
+ENV/
+
+# Server connect
+connect.sh
 *.pem
-*.sh
